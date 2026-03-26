@@ -1,21 +1,23 @@
 import Link from 'next/link';
 import { KBO_TEAMS } from '@/types';
-import type { GameSchedule } from '@/types';
+import type { GameSchedule, TeamCode } from '@/types';
 import { StatusBadge } from '@/components/ui/StatusBadge';
 
 interface GameCardProps {
   game: GameSchedule;
   isFavoriteGame?: boolean;
+  favoriteTeam?: TeamCode | null;
 }
 
 const CANCELLED_STATUSES = new Set(['cancelled', 'postponed', 'suspended']);
 
-export function GameCard({ game, isFavoriteGame = false }: GameCardProps) {
+export function GameCard({ game, isFavoriteGame = false, favoriteTeam = null }: GameCardProps) {
   const { gameId, homeTeam, awayTeam, time, status, homeScore, awayScore } = game;
   const isCancelled = CANCELLED_STATUSES.has(status);
   const hasScore = homeScore !== null && awayScore !== null;
   const homeInfo = KBO_TEAMS[homeTeam];
   const awayInfo = KBO_TEAMS[awayTeam];
+  const favoriteColor = favoriteTeam ? KBO_TEAMS[favoriteTeam].color : null;
 
   return (
     <Link href={`/game/${gameId}`} className="block group">
@@ -24,8 +26,8 @@ export function GameCard({ game, isFavoriteGame = false }: GameCardProps) {
         className={`hidden md:flex items-center gap-1 rounded px-1 py-0.5 text-xs
           hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors
           ${isCancelled ? 'opacity-50' : ''}
-          ${isFavoriteGame ? 'font-semibold' : ''}`}
-        style={isFavoriteGame ? { backgroundColor: `${homeInfo.color}18` } : undefined}
+          ${isFavoriteGame ? 'font-semibold border border-l-2' : ''}`}
+        style={isFavoriteGame && favoriteColor ? { borderColor: favoriteColor } : undefined}
       >
         {/* 홈팀 색상 인디케이터 */}
         <span
@@ -54,7 +56,7 @@ export function GameCard({ game, isFavoriteGame = false }: GameCardProps) {
             ? 'border-2'
             : 'border-zinc-200 dark:border-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-600'}
           ${isCancelled ? 'opacity-60' : ''}`}
-        style={isFavoriteGame ? { borderColor: homeInfo.color } : undefined}
+        style={isFavoriteGame && favoriteColor ? { borderColor: favoriteColor } : undefined}
       >
         <div className="flex items-center gap-3">
           <div className="text-center">

@@ -1,5 +1,4 @@
 import type { CalendarDay, TeamCode } from '@/types';
-import { KBO_TEAMS } from '@/types';
 import { GameCard } from './GameCard';
 
 interface DayCellProps {
@@ -29,27 +28,15 @@ export function DayCell({ day, hideIfEmpty = false, favoriteTeam = null }: DayCe
 
   const cellOpacity = !day.isCurrentMonth ? 'opacity-40' : '';
 
-  const hasFavoriteGame =
-    favoriteTeam !== null &&
-    day.games.some((g) => g.homeTeam === favoriteTeam || g.awayTeam === favoriteTeam);
-
-  const favoriteColor = favoriteTeam ? KBO_TEAMS[favoriteTeam].color : null;
-
   return (
     <>
       {/* 그리드 뷰 셀 (md 이상) */}
       <div
         className={`hidden md:block min-h-24 p-1 border-r border-b border-zinc-200
           dark:border-zinc-800 ${cellOpacity}`}
-        style={hasFavoriteGame && favoriteColor
-          ? { borderLeftWidth: '3px', borderLeftColor: favoriteColor }
-          : undefined}
       >
         <div className="mb-1 flex items-center gap-1">
           <span className={dateNumClass}>{dayNum}</span>
-          {hasFavoriteGame && favoriteColor && (
-            <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: favoriteColor }} />
-          )}
         </div>
         <div className="space-y-0.5">
           {day.games.map((game) => {
@@ -57,7 +44,7 @@ export function DayCell({ day, hideIfEmpty = false, favoriteTeam = null }: DayCe
               favoriteTeam !== null &&
               (game.homeTeam === favoriteTeam || game.awayTeam === favoriteTeam);
             return (
-              <GameCard key={game.gameId} game={game} isFavoriteGame={isFavoriteGame} />
+              <GameCard key={game.gameId} game={game} isFavoriteGame={isFavoriteGame} favoriteTeam={favoriteTeam} />
             );
           })}
         </div>
@@ -66,18 +53,9 @@ export function DayCell({ day, hideIfEmpty = false, favoriteTeam = null }: DayCe
       {/* 리스트 뷰 항목 (md 미만) */}
       <div
         className={`md:hidden px-4 py-3 ${cellOpacity}`}
-        style={hasFavoriteGame && favoriteColor
-          ? { borderLeftWidth: '3px', borderLeftColor: favoriteColor, paddingLeft: '13px' }
-          : undefined}
       >
         <time className="block text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-2">
           <span>{`${parseInt(day.date.slice(5, 7), 10)}월 ${dayNum}일 (${WEEKDAY_LABEL[weekday]})`}</span>
-          {hasFavoriteGame && favoriteColor && (
-            <span
-              className="inline-block ml-1.5 w-2 h-2 rounded-full align-middle"
-              style={{ backgroundColor: favoriteColor }}
-            />
-          )}
         </time>
         {day.games.length > 0 ? (
           <div className="space-y-2">
@@ -86,7 +64,7 @@ export function DayCell({ day, hideIfEmpty = false, favoriteTeam = null }: DayCe
                 favoriteTeam !== null &&
                 (game.homeTeam === favoriteTeam || game.awayTeam === favoriteTeam);
               return (
-                <GameCard key={game.gameId} game={game} isFavoriteGame={isFavoriteGame} />
+                <GameCard key={game.gameId} game={game} isFavoriteGame={isFavoriteGame} favoriteTeam={favoriteTeam} />
               );
             })}
           </div>

@@ -39,7 +39,7 @@ export function FavoriteTeamSelectDialog() {
   return (
     <dialog
       ref={dialogRef}
-      className="rounded-2xl p-0 shadow-2xl backdrop:bg-black/50 backdrop:backdrop-blur-sm
+      className="m-auto rounded-2xl p-0 shadow-2xl backdrop:bg-black/50 backdrop:backdrop-blur-sm
         w-[min(90vw,400px)] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800"
       onCancel={handleSkip}
     >
