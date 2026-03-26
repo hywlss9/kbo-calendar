@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import type { TeamCode } from '@/types';
 import {
   getFavoriteTeam,
@@ -10,6 +10,7 @@ import {
   isFirstVisit,
   markVisited,
 } from './storage';
+import { setFavoriteTeamAction } from '@/app/actions/favorite';
 
 interface FavoriteTeamState {
   favoriteTeam: TeamCode | null;
@@ -43,15 +44,21 @@ export function FavoriteTeamProvider({ children }: { children: React.ReactNode }
     }
   }, []);
 
-  function setFavoriteTeam(code: TeamCode | null) {
+  const setFavoriteTeam = useCallback((code: TeamCode | null) => {
     saveFavoriteTeam(code);
     setFavoriteTeamState(code);
-  }
+    setFavoriteTeamAction(code).catch(() => {});
+  }, []);
 
-  function setHighlightEnabled(value: boolean) {
+  const setHighlightEnabled = useCallback((value: boolean) => {
     saveHighlightEnabled(value);
     setHighlightEnabledState(value);
-  }
+  }, []);
+
+  const openSelect   = useCallback(() => setIsSelectOpen(true), []);
+  const closeSelect  = useCallback(() => setIsSelectOpen(false), []);
+  const openSettings  = useCallback(() => setIsSettingsOpen(true), []);
+  const closeSettings = useCallback(() => setIsSettingsOpen(false), []);
 
   return (
     <FavoriteTeamContext.Provider
@@ -62,10 +69,10 @@ export function FavoriteTeamProvider({ children }: { children: React.ReactNode }
         isSettingsOpen,
         setFavoriteTeam,
         setHighlightEnabled,
-        openSelect: () => setIsSelectOpen(true),
-        closeSelect: () => setIsSelectOpen(false),
-        openSettings: () => setIsSettingsOpen(true),
-        closeSettings: () => setIsSettingsOpen(false),
+        openSelect,
+        closeSelect,
+        openSettings,
+        closeSettings,
       }}
     >
       {children}

@@ -18,6 +18,7 @@ import {
   insertSyncLog,
   updateSyncLog,
 } from '@/lib/db/queries';
+import db from '@/lib/db/client';
 
 // ---- 공개 타입 ----
 
@@ -81,16 +82,21 @@ export async function syncSchedule(
       throw new Error(result.error ?? '일정 크롤링 실패 (PostBack + Playwright 모두 실패)');
     }
 
-    for (const game of result.data) {
-      try {
+    const upsertAll = db.transaction((games: typeof result.data) => {
+      let count = 0;
+      for (const game of games) {
         upsertGame(game);
-        gamesUpdated++;
-      } catch (err) {
-        errors.push({
-          gameId: game.gameId,
-          message: err instanceof Error ? err.message : String(err),
-        });
+        count++;
       }
+      return count;
+    });
+
+    try {
+      gamesUpdated = upsertAll(result.data);
+    } catch (err) {
+      errors.push({
+        message: err instanceof Error ? err.message : String(err),
+      });
     }
 
     updateSyncLog(
