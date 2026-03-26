@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import { getCachedGameDetail, getGameDetail, upsertBoxScore, upsertScoreBoard } from '@/lib/db/queries';
+import { getCachedGameDetail } from '@/lib/db/cached-queries';
+import { getGameDetail, upsertBoxScore, upsertScoreBoard } from '@/lib/db/queries';
 import { validateGameId } from '@/lib/api/validation';
 import { KBO_TEAMS } from '@/types';
 import type { GameStatus, ScoreBoard } from '@/types';

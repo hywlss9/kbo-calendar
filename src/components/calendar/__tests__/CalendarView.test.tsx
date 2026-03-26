@@ -3,8 +3,8 @@ import { render, screen } from '@testing-library/react'
 import type { GameSchedule } from '@/types'
 import React from 'react'
 
-// DB queries mock
-vi.mock('@/lib/db/queries', () => ({
+// DB cached queries mock
+vi.mock('@/lib/db/cached-queries', () => ({
   getCachedGamesByRange: vi.fn(),
   getCachedGamesByTeam: vi.fn(),
 }))
@@ -33,7 +33,7 @@ vi.mock('next/link', () => ({
 }))
 
 import CalendarView from '@/components/calendar/CalendarView'
-import { getCachedGamesByRange, getCachedGamesByTeam } from '@/lib/db/queries'
+import { getCachedGamesByRange, getCachedGamesByTeam } from '@/lib/db/cached-queries'
 import { beforeEach } from 'vitest'
 
 const mockGetByRange = getCachedGamesByRange as ReturnType<typeof vi.fn>

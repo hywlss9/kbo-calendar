@@ -4,7 +4,7 @@ import {
   getCachedGamesByDate,
   getCachedGamesByRange,
   getCachedGamesByTeam,
-} from '@/lib/db/queries';
+} from '@/lib/db/cached-queries';
 import {
   validateDate,
   validateTeam,

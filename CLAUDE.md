@@ -110,3 +110,39 @@ src/
 - KBO robots.txt: `/ws/` 경로 Disallow → 요청 간격 넉넉히
 - 시즌 구분: srId(0=정규, 1=시범, 4~7=포스트시즌)
 - 경기 특수 상태: 우천취소, 더블헤더, 연장전, 콜드게임, 서스펜디드
+
+## Security & Git
+
+### 민감 정보 분류
+- **절대 커밋 금지**: API 키, 비밀번호, DB 접속 정보, 인증 토큰, `.env`, `.env.local`, `.env.production` 등 실제 시크릿 파일
+- **커밋 금지** (`.gitignore` 등록됨): `*.db`, `*.db-shm`, `*.db-wal`, `.claude/`
+- **커밋 허용**: `.env.example` — 키 이름만 포함하고 실제 값은 비워둔 템플릿
+
+### .env 관리 규칙
+- 환경변수 파일은 용도별로 분리: `.env.local` (로컬 개발) / `.env.production` (운영)
+- 새 환경변수를 추가할 때는 반드시 `.env.example`에도 키 이름(빈 값)을 추가하여 최신 상태 유지
+- `.env.example` 형식:
+  ```
+  DATABASE_URL=
+  NEXT_PUBLIC_APP_URL=
+  ```
+
+### 코드 작성 규칙
+- 환경변수는 반드시 `process.env.VAR_NAME`으로 참조 — 코드 내 하드코딩 금지
+- 민감 정보가 포함된 로그 출력 금지 (예: `console.log(process.env.SECRET_KEY)`)
+
+### Git Push 전 체크리스트
+1. `git diff --staged` 로 스테이징된 변경사항에 시크릿 포함 여부 확인
+2. `git status`에 `.env*` 파일이 나타나면 즉시 `.gitignore` 확인
+3. 하드코딩된 API 키, 비밀번호, 자격증명이 코드에 없는지 확인
+4. `*.db` 파일이 스테이징에 포함되지 않았는지 확인
+5. 실수로 커밋된 경우: `git rm --cached <file>` 후 `.gitignore`에 추가, 유출된 시크릿은 즉시 교체
+
+### Commit / Push 확인 절차 (필수)
+- `git commit` 또는 `git push` 를 실행하기 **전에 반드시** 아래 내용을 요약하여 사용자에게 확인을 받아야 한다:
+  1. **변경된 파일 목록** — 어떤 파일이 추가/수정/삭제되었는지
+  2. **변경 내용 요약** — 각 파일에서 무엇이 바뀌었는지 한 줄 설명
+  3. **커밋 메시지 초안** — 실제 사용할 커밋 메시지
+  4. **push 대상** (push인 경우) — 브랜치 및 remote
+- 사용자가 명시적으로 승인한 후에만 commit/push를 실행한다
+- 사용자가 "그냥 해줘", "바로 해줘" 등 사전 승인 의사를 밝힌 경우에도 요약은 반드시 먼저 보여준다

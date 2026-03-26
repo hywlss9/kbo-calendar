@@ -1,5 +1,5 @@
 import type { TeamCode } from '@/types';
-import { getCachedGamesByRange, getCachedGamesByTeam } from '@/lib/db/queries';
+import { getCachedGamesByRange, getCachedGamesByTeam } from '@/lib/db/cached-queries';
 import { calendarRangeFrom, calendarRangeTo, buildCalendarMonth } from '@/lib/utils/date';
 import { DayCell } from './DayCell';
 

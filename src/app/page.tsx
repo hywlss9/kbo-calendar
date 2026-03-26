@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { KBO_TEAMS } from '@/types';
 import type { TeamCode } from '@/types';
 import { nowKst } from '@/lib/utils/date';
@@ -32,7 +33,9 @@ export default async function Home({ searchParams }: HomeProps) {
 
       <CalendarNav year={year} month={month} />
       <TeamFilter selectedTeam={selectedTeam} />
-      <CalendarClientWrapper year={year} month={month} urlTeam={selectedTeam} />
+      <Suspense fallback={<div className="flex-1 flex items-center justify-center text-zinc-400">Loading...</div>}>
+        <CalendarClientWrapper year={year} month={month} urlTeam={selectedTeam} />
+      </Suspense>
     </main>
   );
 }

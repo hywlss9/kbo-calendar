@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import type { ApiResponse, BoxScore } from '@/types';
-import { getCachedGameById } from '@/lib/db/queries';
+import { getCachedGameById } from '@/lib/db/cached-queries';
 import { validateGameId, toErrorResponse } from '@/lib/api/validation';
 
 type RouteParams = { params: Promise<{ gameId: string }> };
