@@ -7,6 +7,10 @@ import {
   setFavoriteTeam as saveFavoriteTeam,
   getHighlightEnabled,
   setHighlightEnabled as saveHighlightEnabled,
+  getShowOnlyFavorite,
+  setShowOnlyFavorite as saveShowOnlyFavorite,
+  getShowOnlyWins,
+  setShowOnlyWins as saveShowOnlyWins,
   isFirstVisit,
   markVisited,
 } from './storage';
@@ -14,10 +18,14 @@ import {
 interface FavoriteTeamState {
   favoriteTeam: TeamCode | null;
   highlightEnabled: boolean;
+  showOnlyFavorite: boolean;
+  showOnlyWins: boolean;
   isSelectOpen: boolean;
   isSettingsOpen: boolean;
   setFavoriteTeam: (code: TeamCode | null) => void;
   setHighlightEnabled: (value: boolean) => void;
+  setShowOnlyFavorite: (value: boolean) => void;
+  setShowOnlyWins: (value: boolean) => void;
   openSelect: () => void;
   closeSelect: () => void;
   openSettings: () => void;
@@ -29,6 +37,8 @@ const FavoriteTeamContext = createContext<FavoriteTeamState | null>(null);
 export function FavoriteTeamProvider({ children }: { children: React.ReactNode }) {
   const [favoriteTeam, setFavoriteTeamState] = useState<TeamCode | null>(null);
   const [highlightEnabled, setHighlightEnabledState] = useState(true);
+  const [showOnlyFavorite, setShowOnlyFavoriteState] = useState(false);
+  const [showOnlyWins, setShowOnlyWinsState] = useState(false);
   const [isSelectOpen, setIsSelectOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
@@ -36,6 +46,8 @@ export function FavoriteTeamProvider({ children }: { children: React.ReactNode }
   useEffect(() => {
     setFavoriteTeamState(getFavoriteTeam());
     setHighlightEnabledState(getHighlightEnabled());
+    setShowOnlyFavoriteState(getShowOnlyFavorite());
+    setShowOnlyWinsState(getShowOnlyWins());
 
     if (isFirstVisit()) {
       markVisited();
@@ -53,6 +65,16 @@ export function FavoriteTeamProvider({ children }: { children: React.ReactNode }
     setHighlightEnabledState(value);
   }, []);
 
+  const setShowOnlyFavorite = useCallback((value: boolean) => {
+    saveShowOnlyFavorite(value);
+    setShowOnlyFavoriteState(value);
+  }, []);
+
+  const setShowOnlyWins = useCallback((value: boolean) => {
+    saveShowOnlyWins(value);
+    setShowOnlyWinsState(value);
+  }, []);
+
   const openSelect   = useCallback(() => setIsSelectOpen(true), []);
   const closeSelect  = useCallback(() => setIsSelectOpen(false), []);
   const openSettings  = useCallback(() => setIsSettingsOpen(true), []);
@@ -63,10 +85,14 @@ export function FavoriteTeamProvider({ children }: { children: React.ReactNode }
       value={{
         favoriteTeam,
         highlightEnabled,
+        showOnlyFavorite,
+        showOnlyWins,
         isSelectOpen,
         isSettingsOpen,
         setFavoriteTeam,
         setHighlightEnabled,
+        setShowOnlyFavorite,
+        setShowOnlyWins,
         openSelect,
         closeSelect,
         openSettings,

@@ -5,7 +5,7 @@
  *   npx ts-node --project tsconfig.scripts.json scripts/generate-data.ts
  *
  * 수행 작업:
- *   1. KBO 스크래퍼로 당월 ± 1개월 경기 일정 수집 → SQLite 갱신
+ *   1. KBO 스크래퍼로 전월 + 당월~시즌 마지막 달(11월) 경기 일정 수집 → SQLite 갱신
  *   2. 최근 경기 스코어/박스스코어 수집 → SQLite 갱신
  *   3. SQLite → public/data/games/YYYY-MM.json 내보내기
  */
@@ -35,12 +35,28 @@ async function main() {
   const currentYear = today.year();
   const currentMonth = today.month() + 1;
 
-  // 전월 / 당월 / 다음달 일정 수집
-  const monthsToSync = [
-    { year: currentYear, month: currentMonth === 1 ? 12 : currentMonth - 1, yearAdj: currentMonth === 1 ? currentYear - 1 : currentYear },
-    { year: currentYear, month: currentMonth },
-    { year: currentYear, month: currentMonth === 12 ? 1 : currentMonth + 1, yearAdj: currentMonth === 12 ? currentYear + 1 : currentYear },
-  ];
+  // 전월 + 당월~시즌 마지막 달(11월) 수집 — 미래 월 데이터도 미리 확보.
+  // 비시즌(12월~2월)에는 기존과 동일하게 전월/당월/다음달 3개월만 수집.
+  const KBO_SEASON_END = 11;
+  const prevMonth = currentMonth === 1 ? 12 : currentMonth - 1;
+  const prevYear  = currentMonth === 1 ? currentYear - 1 : currentYear;
+  const nextMonth = currentMonth === 12 ? 1 : currentMonth + 1;
+  const nextYear  = currentMonth === 12 ? currentYear + 1 : currentYear;
+
+  const monthsToSync: Array<{ year: number; month: number; yearAdj: number }> = [];
+
+  if (currentMonth <= KBO_SEASON_END) {
+    // 시즌 중: 전월 + 당월~11월
+    monthsToSync.push({ year: currentYear, month: prevMonth, yearAdj: prevYear });
+    for (let m = currentMonth; m <= KBO_SEASON_END; m++) {
+      monthsToSync.push({ year: currentYear, month: m, yearAdj: currentYear });
+    }
+  } else {
+    // 비시즌(12월~): 전월/당월/다음달
+    monthsToSync.push({ year: currentYear, month: prevMonth, yearAdj: prevYear });
+    monthsToSync.push({ year: currentYear, month: currentMonth, yearAdj: currentYear });
+    monthsToSync.push({ year: currentYear, month: nextMonth, yearAdj: nextYear });
+  }
 
   console.log('[generate-data] 경기 일정 스크래핑 시작...');
   for (const { year, month, yearAdj } of monthsToSync) {

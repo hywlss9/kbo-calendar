@@ -14,6 +14,10 @@ export function FavoriteSettingsDialog() {
     setFavoriteTeam,
     highlightEnabled,
     setHighlightEnabled,
+    showOnlyFavorite,
+    setShowOnlyFavorite,
+    showOnlyWins,
+    setShowOnlyWins,
     openSelect,
   } = useFavoriteTeam();
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -109,6 +113,48 @@ export function FavoriteSettingsDialog() {
             <span
               className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform
                 ${highlightEnabled ? 'translate-x-5' : 'translate-x-0'}`}
+            />
+          </button>
+        </div>
+
+        {/* 응원팀 경기만 보기 토글 */}
+        <div className={`flex items-center justify-between py-3 border-t border-zinc-200 dark:border-zinc-800
+          ${!favoriteTeam ? 'opacity-40 pointer-events-none' : ''}`}>
+          <div>
+            <p className="text-sm font-medium text-zinc-800 dark:text-zinc-200">응원팀 경기만 보기</p>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400">다른 팀 경기를 숨김</p>
+          </div>
+          <button
+            role="switch"
+            aria-checked={showOnlyFavorite}
+            onClick={() => setShowOnlyFavorite(!showOnlyFavorite)}
+            className={`relative w-11 h-6 rounded-full transition-colors focus:outline-none
+              ${showOnlyFavorite ? 'bg-blue-500' : 'bg-zinc-300 dark:bg-zinc-600'}`}
+          >
+            <span
+              className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform
+                ${showOnlyFavorite ? 'translate-x-5' : 'translate-x-0'}`}
+            />
+          </button>
+        </div>
+
+        {/* 응원팀 승리 경기만 보기 토글 */}
+        <div className={`flex items-center justify-between py-3 border-t border-zinc-200 dark:border-zinc-800
+          ${!favoriteTeam ? 'opacity-40 pointer-events-none' : ''}`}>
+          <div>
+            <p className="text-sm font-medium text-zinc-800 dark:text-zinc-200">응원팀 승리만 보기</p>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400">응원팀 경기 중 승리 경기만 표시</p>
+          </div>
+          <button
+            role="switch"
+            aria-checked={showOnlyWins}
+            onClick={() => setShowOnlyWins(!showOnlyWins)}
+            className={`relative w-11 h-6 rounded-full transition-colors focus:outline-none
+              ${showOnlyWins ? 'bg-blue-500' : 'bg-zinc-300 dark:bg-zinc-600'}`}
+          >
+            <span
+              className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform
+                ${showOnlyWins ? 'translate-x-5' : 'translate-x-0'}`}
             />
           </button>
         </div>

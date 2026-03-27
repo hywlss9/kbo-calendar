@@ -10,9 +10,32 @@ import { CalendarNav } from './CalendarNav';
 import { TeamFilter } from './TeamFilter';
 import CalendarView from './CalendarView';
 
+function isFavoriteWin(game: GameSchedule, team: TeamCode): boolean {
+  if (game.status !== 'final') return false;
+  if (game.homeScore === null || game.awayScore === null) return false;
+  return game.homeTeam === team
+    ? game.homeScore > game.awayScore
+    : game.awayScore > game.homeScore;
+}
+
+function applyFavoriteFilters(
+  games: GameSchedule[],
+  favoriteTeam: TeamCode | null,
+  showOnlyFavorite: boolean,
+  showOnlyWins: boolean,
+): GameSchedule[] {
+  if (!favoriteTeam) return games;
+  return games.filter((g) => {
+    const isFav = g.homeTeam === favoriteTeam || g.awayTeam === favoriteTeam;
+    if (showOnlyFavorite && !isFav) return false;
+    if (showOnlyWins && isFav) return isFavoriteWin(g, favoriteTeam);
+    return true;
+  });
+}
+
 export function CalendarPageClient() {
   const searchParams = useSearchParams();
-  const { favoriteTeam } = useFavoriteTeam();
+  const { favoriteTeam, showOnlyFavorite, showOnlyWins } = useFavoriteTeam();
 
   const kst = nowKst();
   const year  = Math.min(Math.max(Number(searchParams.get('year'))  || kst.year(),       2015), 2030);
@@ -49,9 +72,11 @@ export function CalendarPageClient() {
       });
   }, [year, month]);
 
-  const filteredGames = selectedTeam
+  const teamFiltered = selectedTeam
     ? games.filter((g) => g.homeTeam === selectedTeam || g.awayTeam === selectedTeam)
     : games;
+
+  const filteredGames = applyFavoriteFilters(teamFiltered, favoriteTeam, showOnlyFavorite, showOnlyWins);
 
   return (
     <>

@@ -4,6 +4,8 @@ import type { TeamCode } from '@/types';
 const KEYS = {
   favoriteTeam: 'kbo-favorite-team',
   highlightEnabled: 'kbo-highlight-enabled',
+  showOnlyFavorite: 'kbo-show-only-favorite',
+  showOnlyWins: 'kbo-show-only-wins',
   visited: 'kbo-visited',
 } as const;
 
@@ -35,6 +37,26 @@ export function getHighlightEnabled(): boolean {
 export function setHighlightEnabled(value: boolean): void {
   if (!isBrowser()) return;
   localStorage.setItem(KEYS.highlightEnabled, value ? 'true' : 'false');
+}
+
+export function getShowOnlyFavorite(): boolean {
+  if (!isBrowser()) return false;
+  return localStorage.getItem(KEYS.showOnlyFavorite) === 'true';
+}
+
+export function setShowOnlyFavorite(value: boolean): void {
+  if (!isBrowser()) return;
+  localStorage.setItem(KEYS.showOnlyFavorite, value ? 'true' : 'false');
+}
+
+export function getShowOnlyWins(): boolean {
+  if (!isBrowser()) return false;
+  return localStorage.getItem(KEYS.showOnlyWins) === 'true';
+}
+
+export function setShowOnlyWins(value: boolean): void {
+  if (!isBrowser()) return;
+  localStorage.setItem(KEYS.showOnlyWins, value ? 'true' : 'false');
 }
 
 export function isFirstVisit(): boolean {
