@@ -1,25 +1,17 @@
-import type { TeamCode } from '@/types';
-import { getCachedGamesByRange, getCachedGamesByTeam } from '@/lib/db/cached-queries';
-import { calendarRangeFrom, calendarRangeTo, buildCalendarMonth } from '@/lib/utils/date';
+import type { GameSchedule, TeamCode } from '@/types';
+import { buildCalendarMonth } from '@/lib/utils/date';
 import { DayCell } from './DayCell';
 
 interface CalendarViewProps {
   year: number;
   month: number;
-  selectedTeam: TeamCode | null;
+  games: GameSchedule[];
   favoriteTeam?: TeamCode | null;
 }
 
 const WEEKDAY_HEADERS = ['일', '월', '화', '수', '목', '금', '토'];
 
-export default async function CalendarView({ year, month, selectedTeam, favoriteTeam = null }: CalendarViewProps) {
-  const from = calendarRangeFrom(year, month);
-  const to = calendarRangeTo(year, month);
-
-  const games = selectedTeam
-    ? await getCachedGamesByTeam(selectedTeam, from, to)
-    : await getCachedGamesByRange(from, to);
-
+export default function CalendarView({ year, month, games, favoriteTeam = null }: CalendarViewProps) {
   const calendar = buildCalendarMonth(year, month, games);
 
   return (

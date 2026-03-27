@@ -1,7 +1,8 @@
 import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { getCachedGameDetail } from '@/lib/db/cached-queries';
-import { getGameDetail, upsertBoxScore, upsertScoreBoard } from '@/lib/db/queries';
+import { getAllGameIds } from '@/lib/db/queries';
 import { validateGameId } from '@/lib/api/validation';
 import { KBO_TEAMS } from '@/types';
 import type { GameStatus, ScoreBoard } from '@/types';
@@ -11,9 +12,6 @@ import { GameMeta } from '@/components/game/GameMeta';
 import { ScoreBoard as ScoreBoardComponent } from '@/components/game/ScoreBoard';
 import { BoxScore } from '@/components/game/BoxScore';
 import { HomeRunList } from '@/components/game/HomeRunList';
-import { RefreshButton } from '@/components/game/RefreshButton';
-import { buildApiParams } from '@/lib/sync/sync-games';
-import { fetchBoxScore, fetchScoreBoard } from '@/lib/scraper/kbo-api';
 
 interface Props {
   params: Promise<{ gameId: string }>;
@@ -28,34 +26,19 @@ const FALLBACK_MESSAGE: Record<GameStatus, string> = {
   suspended:   '서스펜디드 경기입니다.',
 };
 
+export async function generateStaticParams() {
+  const ids = getAllGameIds();
+  return ids.map((gameId) => ({ gameId }));
+}
+
 export default async function GameDetailPage({ params }: Props) {
   const { gameId } = await params;
 
   const validation = validateGameId(gameId);
   if (!validation.ok) notFound();
 
-  let detail = await getCachedGameDetail(validation.value);
+  const detail = await getCachedGameDetail(validation.value);
   if (!detail) notFound();
-
-  // on-demand 페치: final/in_progress 경기인데 DB에 데이터가 없을 때
-  if (
-    !detail.scoreBoard &&
-    !detail.boxScore &&
-    (detail.schedule.status === 'final' || detail.schedule.status === 'in_progress')
-  ) {
-    const params = buildApiParams(detail.schedule.gameId, detail.schedule.seasonType);
-    const boxResult = await fetchBoxScore(params);
-    if (boxResult.success && boxResult.data !== null) {
-      upsertBoxScore(detail.schedule.gameId, boxResult.data);
-    } else {
-      const scoreResult = await fetchScoreBoard(params);
-      if (scoreResult.success && scoreResult.data !== null) {
-        upsertScoreBoard(detail.schedule.gameId, scoreResult.data);
-      }
-    }
-    // 캐시 미사용 동기 버전으로 재조회
-    detail = getGameDetail(detail.schedule.gameId) ?? detail;
-  }
 
   const { schedule, scoreBoard, boxScore } = detail;
 
@@ -71,11 +54,10 @@ export default async function GameDetailPage({ params }: Props) {
     >
       <header className="sticky top-0 z-10 bg-white/90 dark:bg-zinc-950/90 backdrop-blur-sm
         border-b border-zinc-200 dark:border-zinc-800 px-4 py-3 flex items-center gap-2">
-        <BackButton />
+        <Suspense fallback={<div className="w-9 h-9" />}>
+          <BackButton />
+        </Suspense>
         <h1 className="text-base font-bold text-zinc-800 dark:text-zinc-100 flex-1">경기 상세</h1>
-        {(schedule.status === 'final' || schedule.status === 'in_progress') && (
-          <RefreshButton gameId={schedule.gameId} />
-        )}
       </header>
 
       <div className="max-w-4xl mx-auto px-4 py-6 space-y-4">

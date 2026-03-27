@@ -64,6 +64,10 @@ const stmtUpdateBoxscore = db.prepare<[string, string]>(Q.UPDATE_BOXSCORE);
 // 쿼리 함수
 // ============================================
 
+export function getAllGameIds(): string[] {
+  return db.prepare<[], { game_id: string }>('SELECT game_id FROM games ORDER BY date').all().map((r) => r.game_id);
+}
+
 export function getGamesByDate(date: string): GameSchedule[] {
   return stmtGamesByDate.all(date).map(rowToGameSchedule);
 }

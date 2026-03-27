@@ -1,0 +1,54 @@
+name: Build & Deploy to GitHub Pages
+
+on:
+  schedule:
+    # 06:00 KST (UTC 21:00 전날) — 일정 동기화
+    - cron: '0 21 * * *'
+    # 22:00 KST (UTC 13:00) — 경기 결과 동기화
+    - cron: '0 13 * * *'
+  push:
+    branches:
+      - master
+  workflow_dispatch:  # 수동 트리거
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install chromium --with-deps
+
+      - name: Generate data (scrape KBO → SQLite → JSON)
+        run: npx ts-node -r tsconfig-paths/register --project tsconfig.scripts.json scripts/generate-data.ts
+        env:
+          DATABASE_URL: ./kbo.db
+          NODE_ENV: production
+
+      - name: Build (Next.js static export)
+        run: npm run build
+        env:
+          NODE_ENV: production
+
+      - name: Deploy to hywlss9.github.io
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ secrets.GH_PAGES_TOKEN }}
+          external_repository: hywlss9/hywlss9.github.io
+          publish_dir: ./out
+          destination_dir: project/kbo-calendar
+          keep_files: true
+          commit_message: 'chore: update KBO calendar data [${{ github.run_id }}]'

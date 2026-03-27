@@ -11,10 +11,11 @@ export default defineConfig({
     environmentMatchGlobs: [
       ['src/lib/**/*.test.ts', 'node'],
     ],
-    deps: {
-      // playwright는 선택적 의존성(fallback 전용)이므로 번들링에서 제외
-      // 테스트에서는 vi.doMock으로 인터셉트
-      external: ['playwright'],
+    server: {
+      deps: {
+        // playwright는 선택적 의존성(fallback 전용)이므로 번들링에서 제외
+        external: ['playwright'],
+      },
     },
   },
   resolve: {

@@ -1,15 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  output: 'export',
+  basePath: '/project/kbo-calendar',
+  trailingSlash: true,
+  images: { unoptimized: true },
   serverExternalPackages: ['better-sqlite3', 'playwright'],
-  cacheComponents: true,
-  webpack: (config) => {
-    config.watchOptions = {
-      ...config.watchOptions,
-      ignored: ['**/*.db', '**/*.db-shm', '**/*.db-wal', '**/node_modules/**'],
-    };
-    return config;
-  },
+  turbopack: {},
 };
 
 export default nextConfig;

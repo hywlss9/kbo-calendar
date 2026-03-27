@@ -10,7 +10,6 @@ import {
   isFirstVisit,
   markVisited,
 } from './storage';
-import { setFavoriteTeamAction } from '@/app/actions/favorite';
 
 interface FavoriteTeamState {
   favoriteTeam: TeamCode | null;
@@ -47,7 +46,6 @@ export function FavoriteTeamProvider({ children }: { children: React.ReactNode }
   const setFavoriteTeam = useCallback((code: TeamCode | null) => {
     saveFavoriteTeam(code);
     setFavoriteTeamState(code);
-    setFavoriteTeamAction(code).catch(() => {});
   }, []);
 
   const setHighlightEnabled = useCallback((value: boolean) => {
