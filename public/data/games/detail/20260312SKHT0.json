@@ -1,0 +1,17 @@
+{
+  "schedule": {
+    "gameId": "20260312SKHT0",
+    "date": "2026-03-12",
+    "time": "13:00",
+    "homeTeam": "HT",
+    "awayTeam": "SK",
+    "stadium": "광주",
+    "status": "final",
+    "seasonType": "preseason",
+    "homeScore": 9,
+    "awayScore": 4,
+    "broadcast": "SPO-2T"
+  },
+  "scoreBoard": null,
+  "boxScore": null
+}

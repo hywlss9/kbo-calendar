@@ -1,0 +1,17 @@
+{
+  "schedule": {
+    "gameId": "20260320OBLT0",
+    "date": "2026-03-20",
+    "time": "13:00",
+    "homeTeam": "LT",
+    "awayTeam": "OB",
+    "stadium": "사직",
+    "status": "final",
+    "seasonType": "preseason",
+    "homeScore": 1,
+    "awayScore": 4,
+    "broadcast": "SS-T"
+  },
+  "scoreBoard": null,
+  "boxScore": null
+}

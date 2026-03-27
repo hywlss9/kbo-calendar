@@ -1,0 +1,17 @@
+{
+  "schedule": {
+    "gameId": "20260323OBKT0",
+    "date": "2026-03-23",
+    "time": "13:00",
+    "homeTeam": "KT",
+    "awayTeam": "OB",
+    "stadium": "수원",
+    "status": "final",
+    "seasonType": "preseason",
+    "homeScore": 7,
+    "awayScore": 12,
+    "broadcast": "SPO-T"
+  },
+  "scoreBoard": null,
+  "boxScore": null
+}

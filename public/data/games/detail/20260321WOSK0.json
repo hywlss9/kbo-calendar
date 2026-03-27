@@ -1,0 +1,17 @@
+{
+  "schedule": {
+    "gameId": "20260321WOSK0",
+    "date": "2026-03-21",
+    "time": "13:00",
+    "homeTeam": "SK",
+    "awayTeam": "WO",
+    "stadium": "문학",
+    "status": "final",
+    "seasonType": "preseason",
+    "homeScore": 0,
+    "awayScore": 9,
+    "broadcast": "SS-T"
+  },
+  "scoreBoard": null,
+  "boxScore": null
+}

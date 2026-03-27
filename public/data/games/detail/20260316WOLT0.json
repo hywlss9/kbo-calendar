@@ -1,0 +1,17 @@
+{
+  "schedule": {
+    "gameId": "20260316WOLT0",
+    "date": "2026-03-16",
+    "time": "13:00",
+    "homeTeam": "LT",
+    "awayTeam": "WO",
+    "stadium": "사직",
+    "status": "final",
+    "seasonType": "preseason",
+    "homeScore": 12,
+    "awayScore": 1,
+    "broadcast": "KN-T"
+  },
+  "scoreBoard": null,
+  "boxScore": null
+}

@@ -1,0 +1,17 @@
+{
+  "schedule": {
+    "gameId": "20260313WOOB0",
+    "date": "2026-03-13",
+    "time": "13:00",
+    "homeTeam": "OB",
+    "awayTeam": "WO",
+    "stadium": "이천(두산)",
+    "status": "final",
+    "seasonType": "preseason",
+    "homeScore": 8,
+    "awayScore": 1,
+    "broadcast": "SS-T"
+  },
+  "scoreBoard": null,
+  "boxScore": null
+}

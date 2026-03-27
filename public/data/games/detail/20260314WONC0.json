@@ -1,0 +1,17 @@
+{
+  "schedule": {
+    "gameId": "20260314WONC0",
+    "date": "2026-03-14",
+    "time": "13:00",
+    "homeTeam": "NC",
+    "awayTeam": "WO",
+    "stadium": "마산",
+    "status": "final",
+    "seasonType": "preseason",
+    "homeScore": 8,
+    "awayScore": 6,
+    "broadcast": "KN-T"
+  },
+  "scoreBoard": null,
+  "boxScore": null
+}

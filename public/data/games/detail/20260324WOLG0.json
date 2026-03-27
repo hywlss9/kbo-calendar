@@ -1,0 +1,17 @@
+{
+  "schedule": {
+    "gameId": "20260324WOLG0",
+    "date": "2026-03-24",
+    "time": "13:00",
+    "homeTeam": "LG",
+    "awayTeam": "WO",
+    "stadium": "잠실",
+    "status": "final",
+    "seasonType": "preseason",
+    "homeScore": 2,
+    "awayScore": 5,
+    "broadcast": "SPO-2T"
+  },
+  "scoreBoard": null,
+  "boxScore": null
+}

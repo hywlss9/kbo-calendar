@@ -1,0 +1,17 @@
+{
+  "schedule": {
+    "gameId": "20260312LGNC0",
+    "date": "2026-03-12",
+    "time": "13:00",
+    "homeTeam": "NC",
+    "awayTeam": "LG",
+    "stadium": "마산",
+    "status": "final",
+    "seasonType": "preseason",
+    "homeScore": 6,
+    "awayScore": 11,
+    "broadcast": "KN-T"
+  },
+  "scoreBoard": null,
+  "boxScore": null
+}

@@ -1,0 +1,17 @@
+{
+  "schedule": {
+    "gameId": "20260319WOKT0",
+    "date": "2026-03-19",
+    "time": "13:00",
+    "homeTeam": "KT",
+    "awayTeam": "WO",
+    "stadium": "수원",
+    "status": "final",
+    "seasonType": "preseason",
+    "homeScore": 4,
+    "awayScore": 11,
+    "broadcast": "SPO-2T"
+  },
+  "scoreBoard": null,
+  "boxScore": null
+}

@@ -78,7 +78,7 @@
       "seasonType": "regular",
       "homeScore": null,
       "awayScore": null,
-      "broadcast": null
+      "broadcast": "KN-T"
     },
     {
       "gameId": "20260331WOSK0",
@@ -91,7 +91,7 @@
       "seasonType": "regular",
       "homeScore": null,
       "awayScore": null,
-      "broadcast": null
+      "broadcast": "SPO-T"
     },
     {
       "gameId": "20260331OBSS0",
@@ -104,7 +104,7 @@
       "seasonType": "regular",
       "homeScore": null,
       "awayScore": null,
-      "broadcast": null
+      "broadcast": "SPO-2T"
     },
     {
       "gameId": "20260331LTNC0",
@@ -117,7 +117,7 @@
       "seasonType": "regular",
       "homeScore": null,
       "awayScore": null,
-      "broadcast": null
+      "broadcast": "SS-T"
     },
     {
       "gameId": "20260331KTHH0",
@@ -130,7 +130,7 @@
       "seasonType": "regular",
       "homeScore": null,
       "awayScore": null,
-      "broadcast": null
+      "broadcast": "MS-T"
     },
     {
       "gameId": "20260401HTLG0",
@@ -143,7 +143,7 @@
       "seasonType": "regular",
       "homeScore": null,
       "awayScore": null,
-      "broadcast": null
+      "broadcast": "KN-T"
     },
     {
       "gameId": "20260401WOSK0",
@@ -156,7 +156,7 @@
       "seasonType": "regular",
       "homeScore": null,
       "awayScore": null,
-      "broadcast": null
+      "broadcast": "SPO-T"
     },
     {
       "gameId": "20260401OBSS0",
@@ -169,7 +169,7 @@
       "seasonType": "regular",
       "homeScore": null,
       "awayScore": null,
-      "broadcast": null
+      "broadcast": "SPO-2T"
     },
     {
       "gameId": "20260401LTNC0",
@@ -182,7 +182,7 @@
       "seasonType": "regular",
       "homeScore": null,
       "awayScore": null,
-      "broadcast": null
+      "broadcast": "TVING"
     },
     {
       "gameId": "20260401KTHH0",
@@ -195,7 +195,7 @@
       "seasonType": "regular",
       "homeScore": null,
       "awayScore": null,
-      "broadcast": null
+      "broadcast": "MS-T"
     },
     {
       "gameId": "20260402HTLG0",
@@ -208,7 +208,7 @@
       "seasonType": "regular",
       "homeScore": null,
       "awayScore": null,
-      "broadcast": null
+      "broadcast": "KN-T"
     },
     {
       "gameId": "20260402WOSK0",
@@ -221,7 +221,7 @@
       "seasonType": "regular",
       "homeScore": null,
       "awayScore": null,
-      "broadcast": null
+      "broadcast": "SPO-T"
     },
     {
       "gameId": "20260402OBSS0",
@@ -234,7 +234,7 @@
       "seasonType": "regular",
       "homeScore": null,
       "awayScore": null,
-      "broadcast": null
+      "broadcast": "SPO-2T"
     },
     {
       "gameId": "20260402LTNC0",
@@ -247,7 +247,7 @@
       "seasonType": "regular",
       "homeScore": null,
       "awayScore": null,
-      "broadcast": null
+      "broadcast": "TVING"
     },
     {
       "gameId": "20260402KTHH0",
@@ -260,7 +260,7 @@
       "seasonType": "regular",
       "homeScore": null,
       "awayScore": null,
-      "broadcast": null
+      "broadcast": "MS-T"
     },
     {
       "gameId": "20260403HHOB0",
@@ -273,7 +273,7 @@
       "seasonType": "regular",
       "homeScore": null,
       "awayScore": null,
-      "broadcast": null
+      "broadcast": "K-2T"
     },
     {
       "gameId": "20260403SKLT0",
@@ -286,7 +286,7 @@
       "seasonType": "regular",
       "homeScore": null,
       "awayScore": null,
-      "broadcast": null
+      "broadcast": "MS-T"
     },
     {
       "gameId": "20260403SSKT0",
@@ -299,7 +299,7 @@
       "seasonType": "regular",
       "homeScore": null,
       "awayScore": null,
-      "broadcast": null
+      "broadcast": "SS-T"
     },
     {
       "gameId": "20260403NCHT0",
@@ -312,7 +312,7 @@
       "seasonType": "regular",
       "homeScore": null,
       "awayScore": null,
-      "broadcast": null
+      "broadcast": "TVING"
     },
     {
       "gameId": "20260403LGWO0",
@@ -325,7 +325,7 @@
       "seasonType": "regular",
       "homeScore": null,
       "awayScore": null,
-      "broadcast": null
+      "broadcast": "SPO-2T<br />SPO-T"
     }
   ]
 }

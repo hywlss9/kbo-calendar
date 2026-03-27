@@ -1,0 +1,17 @@
+{
+  "schedule": {
+    "gameId": "20260316LGKT0",
+    "date": "2026-03-16",
+    "time": "13:00",
+    "homeTeam": "KT",
+    "awayTeam": "LG",
+    "stadium": "수원",
+    "status": "final",
+    "seasonType": "preseason",
+    "homeScore": 3,
+    "awayScore": 5,
+    "broadcast": "SPO-2T"
+  },
+  "scoreBoard": null,
+  "boxScore": null
+}

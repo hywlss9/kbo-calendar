@@ -1,0 +1,17 @@
+{
+  "schedule": {
+    "gameId": "20260314SSOB0",
+    "date": "2026-03-14",
+    "time": "13:00",
+    "homeTeam": "OB",
+    "awayTeam": "SS",
+    "stadium": "이천(두산)",
+    "status": "final",
+    "seasonType": "preseason",
+    "homeScore": 4,
+    "awayScore": 5,
+    "broadcast": "MS-T"
+  },
+  "scoreBoard": null,
+  "boxScore": null
+}

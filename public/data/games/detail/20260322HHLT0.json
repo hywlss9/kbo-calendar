@@ -1,0 +1,17 @@
+{
+  "schedule": {
+    "gameId": "20260322HHLT0",
+    "date": "2026-03-22",
+    "time": "13:00",
+    "homeTeam": "LT",
+    "awayTeam": "HH",
+    "stadium": "사직",
+    "status": "final",
+    "seasonType": "preseason",
+    "homeScore": 10,
+    "awayScore": 6,
+    "broadcast": "SPO-2T"
+  },
+  "scoreBoard": null,
+  "boxScore": null
+}

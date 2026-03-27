@@ -1,0 +1,17 @@
+{
+  "schedule": {
+    "gameId": "20260319SSNC0",
+    "date": "2026-03-19",
+    "time": "13:00",
+    "homeTeam": "NC",
+    "awayTeam": "SS",
+    "stadium": "창원",
+    "status": "final",
+    "seasonType": "preseason",
+    "homeScore": 4,
+    "awayScore": 9,
+    "broadcast": "SPO-T"
+  },
+  "scoreBoard": null,
+  "boxScore": null
+}

@@ -1,0 +1,17 @@
+{
+  "schedule": {
+    "gameId": "20260314KTHT0",
+    "date": "2026-03-14",
+    "time": "13:00",
+    "homeTeam": "HT",
+    "awayTeam": "KT",
+    "stadium": "광주",
+    "status": "final",
+    "seasonType": "preseason",
+    "homeScore": 10,
+    "awayScore": 10,
+    "broadcast": "SPO-T"
+  },
+  "scoreBoard": null,
+  "boxScore": null
+}

@@ -1,0 +1,17 @@
+{
+  "schedule": {
+    "gameId": "20260314SKHH0",
+    "date": "2026-03-14",
+    "time": "13:00",
+    "homeTeam": "HH",
+    "awayTeam": "SK",
+    "stadium": "대전",
+    "status": "final",
+    "seasonType": "preseason",
+    "homeScore": 1,
+    "awayScore": 2,
+    "broadcast": "TVING"
+  },
+  "scoreBoard": null,
+  "boxScore": null
+}

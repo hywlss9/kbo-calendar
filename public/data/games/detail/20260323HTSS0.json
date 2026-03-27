@@ -1,0 +1,17 @@
+{
+  "schedule": {
+    "gameId": "20260323HTSS0",
+    "date": "2026-03-23",
+    "time": "18:00",
+    "homeTeam": "SS",
+    "awayTeam": "HT",
+    "stadium": "대구",
+    "status": "final",
+    "seasonType": "preseason",
+    "homeScore": 7,
+    "awayScore": 1,
+    "broadcast": "MS-T"
+  },
+  "scoreBoard": null,
+  "boxScore": null
+}

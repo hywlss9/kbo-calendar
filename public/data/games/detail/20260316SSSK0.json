@@ -1,0 +1,17 @@
+{
+  "schedule": {
+    "gameId": "20260316SSSK0",
+    "date": "2026-03-16",
+    "time": "13:00",
+    "homeTeam": "SK",
+    "awayTeam": "SS",
+    "stadium": "문학",
+    "status": "final",
+    "seasonType": "preseason",
+    "homeScore": 0,
+    "awayScore": 8,
+    "broadcast": "SPO-T"
+  },
+  "scoreBoard": null,
+  "boxScore": null
+}

@@ -1,0 +1,17 @@
+{
+  "schedule": {
+    "gameId": "20260322LGSS0",
+    "date": "2026-03-22",
+    "time": "13:00",
+    "homeTeam": "SS",
+    "awayTeam": "LG",
+    "stadium": "대구",
+    "status": "final",
+    "seasonType": "preseason",
+    "homeScore": 13,
+    "awayScore": 14,
+    "broadcast": "MS-T"
+  },
+  "scoreBoard": null,
+  "boxScore": null
+}

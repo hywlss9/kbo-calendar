@@ -1,0 +1,17 @@
+{
+  "schedule": {
+    "gameId": "20260314LGLT0",
+    "date": "2026-03-14",
+    "time": "13:00",
+    "homeTeam": "LT",
+    "awayTeam": "LG",
+    "stadium": "사직",
+    "status": "final",
+    "seasonType": "preseason",
+    "homeScore": 5,
+    "awayScore": 3,
+    "broadcast": "SPO-2T"
+  },
+  "scoreBoard": null,
+  "boxScore": null
+}

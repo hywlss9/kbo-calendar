@@ -1,0 +1,17 @@
+{
+  "schedule": {
+    "gameId": "20260324NCHH0",
+    "date": "2026-03-24",
+    "time": "13:00",
+    "homeTeam": "HH",
+    "awayTeam": "NC",
+    "stadium": "대전",
+    "status": "final",
+    "seasonType": "preseason",
+    "homeScore": 9,
+    "awayScore": 8,
+    "broadcast": "SS-T"
+  },
+  "scoreBoard": null,
+  "boxScore": null
+}

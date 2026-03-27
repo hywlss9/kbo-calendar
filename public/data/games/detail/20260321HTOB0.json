@@ -1,0 +1,17 @@
+{
+  "schedule": {
+    "gameId": "20260321HTOB0",
+    "date": "2026-03-21",
+    "time": "13:00",
+    "homeTeam": "OB",
+    "awayTeam": "HT",
+    "stadium": "잠실",
+    "status": "final",
+    "seasonType": "preseason",
+    "homeScore": 6,
+    "awayScore": 11,
+    "broadcast": "KN-T"
+  },
+  "scoreBoard": null,
+  "boxScore": null
+}

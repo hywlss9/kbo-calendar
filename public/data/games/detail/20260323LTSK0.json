@@ -1,0 +1,17 @@
+{
+  "schedule": {
+    "gameId": "20260323LTSK0",
+    "date": "2026-03-23",
+    "time": "13:00",
+    "homeTeam": "SK",
+    "awayTeam": "LT",
+    "stadium": "문학",
+    "status": "final",
+    "seasonType": "preseason",
+    "homeScore": 2,
+    "awayScore": 5,
+    "broadcast": "KN-T"
+  },
+  "scoreBoard": null,
+  "boxScore": null
+}

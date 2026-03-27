@@ -1,0 +1,17 @@
+{
+  "schedule": {
+    "gameId": "20260316HTNC0",
+    "date": "2026-03-16",
+    "time": "17:00",
+    "homeTeam": "NC",
+    "awayTeam": "HT",
+    "stadium": "창원",
+    "status": "final",
+    "seasonType": "preseason",
+    "homeScore": 4,
+    "awayScore": 3,
+    "broadcast": "SS-T"
+  },
+  "scoreBoard": null,
+  "boxScore": null
+}

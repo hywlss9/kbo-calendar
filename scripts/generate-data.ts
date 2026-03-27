@@ -6,8 +6,9 @@
  *
  * 수행 작업:
  *   1. KBO 스크래퍼로 전월 + 당월~시즌 마지막 달(11월) 경기 일정 수집 → SQLite 갱신
- *   2. 최근 경기 스코어/박스스코어 수집 → SQLite 갱신
- *   3. SQLite → public/data/games/YYYY-MM.json 내보내기
+ *   2. 각 월의 final/in_progress 경기 스코어/박스스코어 수집 → SQLite 갱신
+ *   3. SQLite → public/data/games/YYYY-MM.json 내보내기 (일정)
+ *   4. SQLite → public/data/games/detail/{gameId}.json 내보내기 (경기 상세)
  */
 
 import path from 'path';
@@ -23,12 +24,13 @@ dayjs.extend(timezone);
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const { syncSchedule, syncScores, syncBoxScores } = require('../src/lib/sync/sync-games');
 // eslint-disable-next-line @typescript-eslint/no-require-imports
-const { getGamesByRange } = require('../src/lib/db/queries');
+const { getGamesByRange, getGameDetailsByRange } = require('../src/lib/db/queries');
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const { calendarRangeFrom, calendarRangeTo } = require('../src/lib/utils/date');
 
 const TZ = 'Asia/Seoul';
 const OUT_DIR = path.resolve(__dirname, '../public/data/games');
+const DETAIL_DIR = path.resolve(__dirname, '../public/data/games/detail');
 
 async function main() {
   const today = dayjs().tz(TZ);
@@ -58,32 +60,43 @@ async function main() {
     monthsToSync.push({ year: currentYear, month: nextMonth, yearAdj: nextYear });
   }
 
-  console.log('[generate-data] 경기 일정 스크래핑 시작...');
+  console.log('[generate-data] 경기 일정 + 스코어 수집 시작...');
   for (const { year, month, yearAdj } of monthsToSync) {
     const y = yearAdj ?? year;
     console.log(`  → ${y}년 ${month}월`);
+
+    // 1. 경기 일정 수집
     try {
       const result = await syncSchedule(y, month);
-      console.log(`     ${result.gamesUpdated}경기 업데이트, 오류 ${result.errors.length}건`);
+      console.log(`     일정: ${result.gamesUpdated}경기 업데이트, 오류 ${result.errors.length}건`);
     } catch (err) {
-      console.error(`     오류:`, err);
+      console.error(`     일정 오류:`, err);
     }
-  }
 
-  // 오늘 + 어제 스코어/박스스코어 수집
-  const datesToSync = [
-    today.subtract(1, 'day').format('YYYY-MM-DD'),
-    today.format('YYYY-MM-DD'),
-  ];
+    // 2. 해당 월의 final/in_progress 경기 스코어/박스스코어 수집 (미시작 경기 제외)
+    const from = calendarRangeFrom(y, month);
+    const to   = calendarRangeTo(y, month);
+    const playedGames = getGamesByRange(from, to).filter(
+      (g: { status: string }) => g.status === 'final' || g.status === 'in_progress',
+    );
+    const datesWithGames: string[] = [...new Set<string>(playedGames.map((g: { date: string }) => g.date))];
 
-  console.log('[generate-data] 스코어 수집 시작...');
-  for (const date of datesToSync) {
-    console.log(`  → ${date}`);
-    try {
-      await syncScores(date);
-      await syncBoxScores(date);
-    } catch (err) {
-      console.error(`     오류:`, err);
+    if (datesWithGames.length > 0) {
+      console.log(`     스코어 수집: ${datesWithGames.length}일`);
+      for (const date of datesWithGames) {
+        try {
+          const scoreResult = await syncScores(date);
+          const boxResult = await syncBoxScores(date);
+          if (scoreResult.errors.length > 0) {
+            console.warn(`     [${date}] 스코어 오류 ${scoreResult.errors.length}건:`, scoreResult.errors.slice(0, 2));
+          }
+          if (boxResult.errors.length > 0) {
+            console.warn(`     [${date}] 박스스코어 오류 ${boxResult.errors.length}건:`, boxResult.errors.slice(0, 2));
+          }
+        } catch (err) {
+          console.error(`     스코어 오류 (${date}):`, err);
+        }
+      }
     }
   }
 
@@ -104,6 +117,20 @@ async function main() {
     fs.writeFileSync(outPath, JSON.stringify({ year: y, month, games }, null, 2), 'utf-8');
     console.log(`  → ${filename} (${games.length}경기)`);
   }
+
+  // 경기 상세 JSON 파일 내보내기 (final 경기만)
+  console.log('[generate-data] 경기 상세 JSON 파일 생성 중...');
+  fs.mkdirSync(DETAIL_DIR, { recursive: true });
+
+  const detailFrom = calendarRangeFrom(prevYear, prevMonth);
+  const detailTo   = calendarRangeTo(currentYear, KBO_SEASON_END);
+  const allDetails = getGameDetailsByRange(detailFrom, detailTo);
+
+  for (const detail of allDetails) {
+    const outPath = path.join(DETAIL_DIR, `${detail.schedule.gameId}.json`);
+    fs.writeFileSync(outPath, JSON.stringify(detail, null, 2), 'utf-8');
+  }
+  console.log(`  → 상세 파일 ${allDetails.length}건 생성`);
 
   console.log('[generate-data] 완료');
 }

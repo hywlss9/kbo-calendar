@@ -100,6 +100,16 @@ export function getGameDetail(gameId: string): GameDetail | null {
   };
 }
 
+export function getGameDetailsByRange(from: string, to: string): GameDetail[] {
+  return stmtGamesByRange.all(from, to)
+    .filter((row) => row.status === 'final')
+    .map((row) => ({
+      schedule: rowToGameSchedule(row),
+      scoreBoard: rowToScoreBoard(row),
+      boxScore: rowToBoxScore(row),
+    }));
+}
+
 export function upsertGame(game: GameSchedule): void {
   stmtUpsertGame.run(
     game.gameId,

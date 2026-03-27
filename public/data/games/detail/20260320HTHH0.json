@@ -1,0 +1,17 @@
+{
+  "schedule": {
+    "gameId": "20260320HTHH0",
+    "date": "2026-03-20",
+    "time": "13:00",
+    "homeTeam": "HH",
+    "awayTeam": "HT",
+    "stadium": "대전",
+    "status": "final",
+    "seasonType": "preseason",
+    "homeScore": 13,
+    "awayScore": 8,
+    "broadcast": "KN-T"
+  },
+  "scoreBoard": null,
+  "boxScore": null
+}
