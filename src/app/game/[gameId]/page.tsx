@@ -92,16 +92,32 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { gameId } = await params;
 
   const validation = validateGameId(gameId);
-  if (!validation.ok) return { title: '경기 없음 — KBO 캘린더' };
+  if (!validation.ok) return {
+    title: '경기 없음',
+    openGraph: { title: '경기 없음 — KBO Calendar' },
+  };
 
   const detail = await getCachedGameDetail(validation.value);
-  if (!detail) return { title: '경기 없음 — KBO 캘린더' };
+  if (!detail) return {
+    title: '경기 없음',
+    openGraph: { title: '경기 없음 — KBO Calendar' },
+  };
 
   const { schedule } = detail;
   const away = KBO_TEAMS[schedule.awayTeam].shortName;
   const home = KBO_TEAMS[schedule.homeTeam].shortName;
 
   return {
-    title: `${away} vs ${home} (${schedule.date}) — KBO 캘린더`,
+    title: `${away} vs ${home} (${schedule.date})`,
+    openGraph: {
+      title: `${away} vs ${home} (${schedule.date}) — KBO Calendar`,
+      description: `${away} VS ${home} - ${schedule.date}`,
+      type: 'article',
+    },
+    twitter: {
+      card: 'summary',
+      title: `${away} vs ${home} (${schedule.date}) — KBO Calendar`,
+      description: `${away} VS ${home} - ${schedule.date}`,
+    },
   };
 }
